@@ -1,16 +1,16 @@
 
-native void: event_Trigger(...);
-native void: event_SetNotify(int: event);
-native void: event_StopNotify(...);
-native void: event_SetWork(bool: enabled);
-native void: event_DevPrintNum(...);
-native void: event_DevPrintStr(...);
-native void: event_DevPrintFloat(...);
-native int: event_TranslateName(string[]);
-native void: event_DelayWork(...);
+native event_Trigger(...);
+native event_SetNotify(int: event);
+native event_StopNotify(...);
+native event_SetWork(bool: enabled);
+native event_DevPrintNum(nInt);
+native event_DevPrintStr(szString[]);
+native event_DevPrintFloat(fFloat);
+native event_TranslateName(string[]);
+native event_DelayWork(fTime);
 
-native MeshRes_Load(...);
-native AudioRes_Load(...);
+native MeshRes_Load(szApeName[]);
+native AudioRes_Load(szAudioName[]);
 
 native AnimRes_Load(...);
 native AnimInst_Acquire(...);
@@ -19,8 +19,8 @@ native AnimInst_Release(...);
 native AnimInst_GetUnitPos(...);
 native AnimInst_Advance(...);
 
-native f32_SetFromInt(...);
-native float: f32_SetFromString(string[]);
+native f32_SetFromInt(value);
+native f32_SetFromString(string[]);
 native f32_DevPrint(...);
 
 // Return the result.
@@ -81,6 +81,6 @@ native FQuatObj_Start(...);
 native FQuatObj_Pause(...);
 native FQuatObj_End(...);
 native FQuatObj_Reset(...);
-//native FQuatObj_IsDone(...);
+native FQuatObj_IsDone(...);
 native FQuatObj_SetTimePos(...);
 

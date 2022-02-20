@@ -126,7 +126,8 @@ native Bot_JobPatrol(hBot, sPathName[], nPatrolSpeed, nDirection);
 native Bot_GoalGotoPos(hBot, vecDestination, nSpeedPercent, nGoToFlags, nReact);
 // Not touching this fully yet
 native Bot_GotoE(hBot, hEntityDestination, bEventWhenDone, nSpeedPercent, hEntityLookAt, nWhenToStartLook);
-native Bot_GotoEO(...);
+// How is this different?
+native Bot_GotoEO(hBot, hEntityDestination, bEventWhenDone, nSpeedPercent, hEntityLookAt, nWhenToStartLook);
 native Bot_Attack(hAttacker, hAttacked, bEventWhenDone);
 native Bot_FacePt(hBot, vecPos, nTrackPercent, nTimeOut, bEventWhenDone);
 native Bot_FaceE(hBot, hEntityLookAt, nTrackPercent, nTimeOut, bEventWhenDone);
@@ -137,7 +138,7 @@ native Bot_Talk(hBot, sBTA[], hEntityLookAt, bStopFirst);
 native Bot_FollowLeader(hBotFollower, hEntityLeader, bIsFollowing);
 native Bot_SetBaseSpeed(hBot, nSpeedPercent);
 native Bot_ClrAttackSpecs(hBot, bResetCurrentAttack);
-native Bot_SetAttackSpecs( ...);
+native Bot_SetAttackSpecs(hBot, nNormalRuleSet, nAlternateRuleSet, nAlternateRuleSetOdds, nAttackMaxDistFromOrigin, nStayPutDist, nAttackSpeedMin, nAttackSpeedMax, bResetCurrentAttack);
 native Bot_TurnOnPercep(hBot, nPerceptorID);
 native Bot_TurnOffPercep(hBot, nPerceptorID);
 native Bot_UsePercep(hBot, nPerceptorID);
@@ -152,25 +153,25 @@ native Ai_CountEnemiesNear(hEntity, hNearbyEntity, fWithinDist);
 native Ai_CountFriendsNear(hEntity, hNearbyEntity, fWithinDist);
 native Bot_CanSeeBot(hBotSeeker, hBotSeeked);
 
-native Bot_GetAnimPos(...);
-native Bot_FreezePlayer(...);
-native Bot_UnfreezePlayer(...);
+native Bot_GetAnimPos();
+native Bot_FreezePlayer();
+native Bot_UnfreezePlayer();
 
-native Bot_AttachAnim(...);
-native Bot_DetachAnim(...);
-native Bot_MaskUBody(...);
-native Bot_MaskLBody(...);
+native Bot_AttachAnim(hBot, hAnim, hAnimIdx);
+native Bot_DetachAnim(hBot, hAnimIdx);
+native Bot_MaskUBody(hBot, hAnimIdx, bDriveBonesInList);
+native Bot_MaskLBody(hBot, hAnimIdx, bDriveBonesInList);
 
-native Bot_LoadAnim(...);
-native Bot_PlayAnim(...);
+native Bot_LoadAnim(szMtxName);
+native Bot_PlayAnim(hBot);
 
-native Bot_TurnAround( ... );
-native Bot_IsTurnedAround( ... );
-native Bot_SpotLightOn( ... );
+native Bot_TurnAround(hBot, bTurnAround);
+native Bot_IsTurnedAround(hBot);
+native Bot_SpotLightOn(hBot, bTurnOn);
 
-native Bot_ZomStartForming( ... );
-native Bot_ZomFloatPieces( ... );
-native Bot_ZomCollapse( ... );
+native Bot_ZomStartForming(hBot);
+native Bot_ZomFloatPieces(hBot);
+native Bot_ZomCollapse(hBot);
 
 native Bot_PossessExit(hBot, bCanBeExited);
 
@@ -201,12 +202,12 @@ native Door_GetUnitPosMap(hDoor);
 native Door_SetLock(hDoor, bIsLocked);
 native Door_SnapToPos(hDoor, nNewPos);
 
-native FV3Points1_Init1(...);
-native FV3Points2_Init1(...);
+native FV3Points1_Init1(hPointPath, szPathName[], fTotalTime, bAutoStart);
+native FV3Points2_Init1(hPointPath, szPathName[], fTotalTime, bAutoStart);
 
 
 
-native FQuatSLERP_Init1(...);
+native FQuatSLERP_Init1(hQuatSLERP, hStartEntity, hEndEntity, fTotalTime, bAutoStart);
 
 
 native Cam_Init(vecPos, quatPos, fHalfFOV);
@@ -228,22 +229,22 @@ native Timer_SetETimer(hETimer, fTime);
 native Timer_ShowIcon(hETimer);
 native Timer_HideIcon();
 
-native HUD_StartCAMsg(...);
+native HUD_StartCAMsg(hAudio);
 
 native HUD_RadioStartBank(...);
 native HUD_RadioStartStrm(...);
 native HUD_RadioStop(...);
 native HUD_RadioIsPlaying(...);
-native HUD_SetMissionText(...);
-native HUD_GetMissionIndex(...);
+native HUD_SetMissionText(nMissionTextIndex);
+native HUD_GetMissionIndex();
 
-	// GI stands for goodie instance.
-	// These operate on the goodie bag as a whole.
+// GI stands for goodie instance.
+// These operate on the goodie bag as a whole.
 native GB_GetNumGIs(...);
 native GB_GetProb(...);
 native GB_SetProb(...);
 
-	// These operate on specific goodie instances.
+// These operate on specific goodie instances.
 native GB_GetGoodieType(...);
 native GB_SetGoodieType(...);
 native GB_GetGoodieQuant1(...);
@@ -263,7 +264,7 @@ native Music_Stop();
 native StreamingSfx_Play(sSongName[]);
 native StreamingSfx_PlayEx(sGoodieName[], nVolume, bFadeIn);	
 	
-native Speech_Play(...);	
+native Speech_Play(szSongName[], nVolume, bLoops);	
 native Speech_Stop(...);	
 
 native Audio_GetSFXHandle(sAudioName[]);
@@ -273,18 +274,18 @@ native Audio_SetAmbientVol(...);
 native Audio_GetAmbientVol(...);
 native Audio_SetAmbientRad(...);
 native Audio_GetAmbientRad(...);
-native Audio_PlayAmbient(...);
+native Audio_PlayAmbient(hSFXname);
 native Audio_StopAmbient(...);
-native Audio_Play2DSound(hSFXname, nvolume);
+native Audio_Play2DSound(hSFXName, nVolume);
 
 native Movie_GetHandle(sMovieName[]);
-native Movie_Play(...);
-native Movie_PlayEx(...);
-native Movie_Stop(...);
+native Movie_Play(hMovie);
+native Movie_PlayEx(hMovie, nVolumeLevel);
+native Movie_Stop();
 
-native Particle_Find(...);
-native Particle_Start(...);
-native Particle_Stop(...);
+native Particle_Find(sEntityName[]);
+native Particle_Start(hParticle);
+native Particle_Stop(hParticle);
 
 native Checkpoint_Save();
 
@@ -342,13 +343,13 @@ native SActor_Reset(...);
 native SActor_Start(...);
 native SActor_Stop(...);
 native SActor_IsDone(...);
-	//GSActor (General Spline Actor) specific functions
+// GSActor (General Spline Actor) specific functions
 native GSActor_Acquire(...);
-	//HSActor (Horizontal Spline Actor) specific functions
+// HSActor (Horizontal Spline Actor) specific functions
 native HSActor_Acquire(...);
-	//SSActor (Swinging Spline Actor) specific functions
+// SSActor (Swinging Spline Actor) specific functions
 native SSActor_Acquire(...);
-	//SOSActor (Static Orientation Spline Actor) specific functions
+// SOSActor (Static Orientation Spline Actor) specific functions
 native SOSActor_Acquire(...);
 
 native Barter_MoveToPoint(sPointName[]);	
@@ -409,3 +410,10 @@ native CamActor_Deactivate(...);
 native CamActor_SetPosObj(...);
 native CamActor_SetQuatObj(...);
 
+// Gather around children it's story time
+// The icon above a recruited bot's head is stored in a var called m_pIconMeshPool
+// This var is only initialized when a Recruiter Grenade is loaded into memory
+// Therefore, if a recruiter grenade is not in the level or Glitch's inventory, this function will not work
+native Bot_Recruit(hRecruiter, hRecruited);
+
+native Console_Enable(hConsole);
